@@ -1,0 +1,22 @@
+@(tasks:Seq[String])(implicit request:RequestHeader,flash:Flash)
+
+@main("Hello World By Bw"){
+<ul>
+    @for((task,i)<-tasks.zipWithIndex){ <li>@task</li>
+        @*<form method="post" action="@routes.TaskList1.deleteTask">
+         *   @helper.CSRF.formField
+         *   <input type="hidden" , name="index" ,value="@i">
+         *   <input type="submit" ,value="delete">
+         *</form>                                                   *@
+        }
+</ul>
+
+<form method="post" action="@routes.TaskList1.addTask">
+    @helper.CSRF.formField
+    <input type="text" name="addTask">
+    <input type="submit" value="addTask">
+
+</form>
+
+<a href="@routes.TaskList1.logout">Logout</a>
+}

@@ -1,0 +1,8 @@
+@(infoList:List[String])(implicit request:RequestHeader,flash:Flash)
+
+@main("Information"){
+    <h1>Here are the information</h1><br>
+    @for(info<-infoList){
+        <h2>@info</h2><br>
+    }
+}
