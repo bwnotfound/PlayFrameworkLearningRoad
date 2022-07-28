@@ -155,4 +155,13 @@ class TaskList1 @Inject() (cc: ControllerComponents)
       }
       .getOrElse(Redirect(routes.TaskList1.login))
   }
+
+  def randomNumber = Action{
+    Ok(util.Random.nextInt(100).toString)
+  }
+
+  def randomString(length:Int) = Action{
+    Ok(util.Random.nextString(length))
+  }
+
 }

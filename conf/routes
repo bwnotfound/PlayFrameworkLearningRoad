@@ -8,6 +8,8 @@ GET     /                           controllers.HomeController.index()
 GET     /taskList1                  controllers.TaskList1.taskList      
 GET     /login                      controllers.TaskList1.login   
 GET     /showUser                   controllers.TaskList1.usernameShow
+GET     /randomNumber               controllers.TaskList1.randomNumber
+GET     /randomString/:length       controllers.TaskList1.randomString(length:Int)
 # Map static resources from the /public folder to the /assets URL path
 GET     /productArgs                controllers.TaskList1.productShow(prodName,prodNum:Int)
 GET     /product/:prodName/:prodNum controllers.TaskList1.productShow(prodName,prodNum:Int)
@@ -18,3 +20,17 @@ POST    /register                   controllers.TaskList1.register
 POST    /addTask                    controllers.TaskList1.addTask
 POST    /deleteTask                 controllers.TaskList1.deleteTask
 
+# Web2.0
+GET     /web2/                      controllers.TaskList2.index
+GET     /web2/login                 controllers.TaskList2.login
+GET     /web2/registerContent       controllers.TaskList2.registerContent
+POST    /web2/validate              controllers.TaskList2.validateUser
+GET     /web2/createUser            controllers.TaskList2.createUser(username,password)
+GET     /web2/deleteTask            controllers.TaskList2.deleteTask(index:Int)
+GET     /web2/taskListContent       controllers.TaskList2.taskListContent
+GET     /web2/addTask               controllers.TaskList2.addTask(task)
+GET     /web2/logout                controllers.TaskList2.logout
+
+
+GET     /assets/*file               controllers.Assets.at(file)
+GET     /versionedAssets/*file      controllers.Assets.versioned(path="/public", file: Asset)

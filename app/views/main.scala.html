@@ -10,12 +10,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        @* Here's where we render the page title `String`. *@
         <title>@title</title>
+        <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     </head>
     <body>
-        @* And here's where we render the `Html` object containing
-         * the page content. *@
         @flash.get("error")
         @content
     </body>
