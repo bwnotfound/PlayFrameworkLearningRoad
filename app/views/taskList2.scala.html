@@ -1,0 +1,12 @@
+@(tasks:Seq[String])(implicit request:RequestHeader)
+
+<ul>
+    @for((task,i)<-tasks.zipWithIndex){ 
+        <li onclick="deleteTask(@i)">@task</li>
+        }
+</ul>
+    <input type="text" id="addTask">
+    <button onclick="addTask()">addTask</button>
+
+
+<button onclick="logout()">Logout</button>
