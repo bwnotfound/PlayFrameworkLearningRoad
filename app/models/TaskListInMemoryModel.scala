@@ -2,6 +2,7 @@ package models
 
 import scala.collection.mutable
 import java.lang.ProcessBuilder.Redirect
+import play.api.libs.json._
 
 object TaskListInMemoryModel {
 
@@ -73,5 +74,25 @@ object TaskListInMemoryModel {
         }
       }
       .getOrElse(false)
+  }
+
+  def getTasksJson(username:String):JsValue = { //TODO:仍有JsValue两种方式创建时对于Seq处理方法的不了解
+    val tasksOption = taskMap.get(username)
+    if(!tasksOption.isEmpty){
+      val tasks = tasksOption.get.toSeq
+      // Json.toJson(tasks)
+      JsObject(
+        Seq(
+          "status"->JsBoolean(true),
+          "tasks"->Json.toJson(tasks)
+        )
+      )
+      // (tasksOption.get.toSeq)
+    }
+    else{
+      Json.obj(
+        "status"->false
+      )
+    }
   }
 }

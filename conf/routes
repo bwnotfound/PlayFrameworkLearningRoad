@@ -32,5 +32,11 @@ GET     /web2/addTask               controllers.TaskList2.addTask(task)
 GET     /web2/logout                controllers.TaskList2.logout
 
 
+# Web3.0
+GET     /web3/                      controllers.TaskList3.load
+GET     /web3/taskList              controllers.TaskList3.taskList
+POST    /web3/validate              controllers.TaskList3.validateUser
+
+
 GET     /assets/*file               controllers.Assets.at(file)
 GET     /versionedAssets/*file      controllers.Assets.versioned(path="/public", file: Asset)

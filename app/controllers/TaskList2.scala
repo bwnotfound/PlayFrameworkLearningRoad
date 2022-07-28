@@ -42,7 +42,6 @@ class TaskList2 @Inject() (cc: ControllerComponents)
   def validateUser = Action {
     implicit request =>
       val postVals = request.body.asFormUrlEncoded
-      println(postVals.get("csrfToken").head)
       postVals
         .map { argsMap =>
           val username = argsMap("username").head

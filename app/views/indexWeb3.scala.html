@@ -1,0 +1,49 @@
+@()(implicit request:RequestHeader)
+
+@mainWeb3("Main page"){
+<!-- <button id="buttonLogin" onclick="loadLoginPage()">Login/Register</button> -->
+<div id="contents"></div>
+
+<div id="login-section">
+    <h2>Login:</h2>
+    <br>
+    Username:<input id="login-username" type="text">
+    <br>
+    Password:<input id="login-password" type="password">
+    <br>
+    <button onclick="login()">Login</button>
+    <br>
+    <button onclick="registerContent()">Register first</button>
+    <br>
+    <div id="register-div"></div>
+
+</div>
+
+<div id="task-section" hidden>
+    <h2>Task List</h2>
+
+    <ul id="task-list">
+
+    </ul>
+
+    <input type="text" id="addTask">
+    <button onclick="addTask()">addTask</button>
+
+
+    <button onclick="logout()">Logout</button>
+
+</div>
+
+<input type="hidden" id="csrfToken" value="@helper.CSRF.getToken.value">
+<input type="hidden" id="validateUser" value="@routes.TaskList3.validateUser">
+<input type="hidden" id="tasks" value="@routes.TaskList3.taskList">
+<!-- <input type="hidden" id="login" value="@routes.TaskList3.validateUser">
+<input type="hidden" id="loadLoginPage" value="@routes.TaskList2.login">
+<input type="hidden" id="logout" value="@routes.TaskList2.logout">
+<input type="hidden" id="registerContent" value="@routes.TaskList2.registerContent">
+<input type="hidden" id="createUser" value="@routes.TaskList2.logout">
+<input type="hidden" id="taskListReload" value="@routes.TaskList2.taskListContent"> -->
+
+
+<script src="@routes.Assets.versioned("javascripts/indexWeb3.js")"></script>
+}
