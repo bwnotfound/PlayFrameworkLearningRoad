@@ -6,6 +6,7 @@
 
 <div id="login-section">
     <h2>Login:</h2>
+    <span id="login-message"></span>
     <br>
     Username:<input id="login-username" type="text">
     <br>
@@ -15,13 +16,26 @@
     <br>
     <button onclick="registerContent()">Register first</button>
     <br>
-    <div id="register-div"></div>
+</div>
 
+<div id="register-section" hidden>
+        <h2>Register:</h2>
+        <span id="register-message"></span>
+        <br>
+        Username:<input id="register-username" type="text">
+        <br>
+        Password:<input id="register-password" type="password">
+        <br>
+        <button onclick="register()">register</button>
+        <br>
+        <button onclick="loginContent()">Login first</button>
+        <br>
 </div>
 
 <div id="task-section" hidden>
     <h2>Task List</h2>
-
+    <span id="task-message"></span>
+    <br>
     <ul id="task-list">
 
     </ul>
@@ -30,13 +44,16 @@
     <button onclick="addTask()">addTask</button>
 
 
-    <button onclick="logout()">Logout</button>
+    <a href="@routes.TaskList3.logout">Logout</button>
 
 </div>
 
 <input type="hidden" id="csrfToken" value="@helper.CSRF.getToken.value">
-<input type="hidden" id="validateUser" value="@routes.TaskList3.validateUser">
-<input type="hidden" id="tasks" value="@routes.TaskList3.taskList">
+<input type="hidden" id="validateUserRoute" value="@routes.TaskList3.validateUser">
+<input type="hidden" id="createUserRoute" value="@routes.TaskList3.createUser">
+<input type="hidden" id="tasksRoute" value="@routes.TaskList3.taskList">
+<input type="hidden" id="addTaskRoute" value="@routes.TaskList3.addTask">
+<input type="hidden" id="deleteTaskRoute" value="@routes.TaskList3.deleteTask">
 <!-- <input type="hidden" id="login" value="@routes.TaskList3.validateUser">
 <input type="hidden" id="loadLoginPage" value="@routes.TaskList2.login">
 <input type="hidden" id="logout" value="@routes.TaskList2.logout">

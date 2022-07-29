@@ -35,8 +35,11 @@ GET     /web2/logout                controllers.TaskList2.logout
 # Web3.0
 GET     /web3/                      controllers.TaskList3.load
 GET     /web3/taskList              controllers.TaskList3.taskList
-POST    /web3/validate              controllers.TaskList3.validateUser
-
+GET     /web3/logout                controllers.TaskList3.logout
+POST    /web3/validateUser          controllers.TaskList3.validateUser
+POST    /web3/createUser            controllers.TaskList3.createUser
+POST    /web3/addTask               controllers.TaskList3.addTask
+POST    /web3/deleteTask            controllers.TaskList3.deleteTask
 
 GET     /assets/*file               controllers.Assets.at(file)
 GET     /versionedAssets/*file      controllers.Assets.versioned(path="/public", file: Asset)

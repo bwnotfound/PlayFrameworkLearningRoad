@@ -1,8 +1,11 @@
 "use strict"
 
 const csrfToken = document.getElementById("csrfToken").value;
-const validateUserRoute = document.getElementById("validateUser").value;
-const tasksRoute = document.getElementById("tasks").value;
+const validateUserRoute = document.getElementById("validateUserRoute").value;
+const createUserRoute = document.getElementById("createUserRoute").value;
+const tasksRoute = document.getElementById("tasksRoute").value;
+const addTaskRoute = document.getElementById("addTaskRoute").value;
+const deleteTaskRoute = document.getElementById("deleteTaskRoute").value;
 // const urlLoadLoginPage =    document.getElementById("loadLoginPage").value;
 // const urlLogin =            document.getElementById("login").value;
 // const urlLogout =           document.getElementById("logout").value;
@@ -17,10 +20,16 @@ function login() {
         headers: { "Content-Type": "application/json", "Csrf-Token": csrfToken },
         body: JSON.stringify({ username, password })
     }).then(result => result.json()).then(data => {
-        if (data == true) {
-            document.getElementById("login-section").hidden = true;
-            document.getElementById("task-section").hidden = false;
+        const status = data["status"];
+        console.log(status);
+        if (status == true) {
             loadTasks();
+            document.getElementById("login-section").hidden = true;
+            document.getElementById("task-section").hidden = false; 
+        }
+        else{
+            document.getElementById("login-message").innerHTML="Login failed.";
+            setTimeout(()=>{document.getElementById("login-message").innerHTML=null;}, 1000);
         }
     });
 }
@@ -30,23 +39,96 @@ function loadTasks() {
     fetch(tasksRoute).then(result => result.json()).then(json => {
         const status = json["status"];
         if (status == false) {
-
+            console.log("status went false in loadTasks");
+            document.getElementById("task-message").innerHTML="Failed to load task.";
+            setTimeout(()=>{document.getElementById("task-message").innerHTML=null;}, 1000);
         }
         else if (status == true) {
             const tasks = json["tasks"];
-            console.log(tasks);
-            for (const task of tasks) {
+            ul.innerHTML=null;
+            for (let i = 0; i < tasks.length; i++) {
                 const li = document.createElement("li");        
-                li.appendChild(document.createTextNode(task));
+                li.appendChild(document.createTextNode(tasks[i]));
+                li.onclick = deleteTask;
+                li.value = i;
                 ul.appendChild(li);
             };
         }
         else{
-            console.log(json);
-            console.log(status);
-            console.log("unknown error occurred in loadTasks");
+            console.log("status error occurred in loadTasks");
         }
+    }).catch(()=>{console.log("unknown error occurred in loadTasks");});
+}
 
+function addTask(){
+    const task = document.getElementById("addTask").value;
+    fetch(addTaskRoute,{
+        method: "POST",
+        headers: {"Content-Type": "application/json", "Csrf-Token": csrfToken},
+        body: JSON.stringify(task)
+    }).then(res=>res.json()).then(data=>{
+        const status = data["status"];
+        if(status==true){
+            loadTasks();
+            document.getElementById("addTask").value = null;
+        }
+        else{
+            document.getElementById("task-message").innerHTML="Failed to add task.";
+            setTimeout(()=>{document.getElementById("task-message").innerHTML=null;}, 1000);
+            console.log("Error occurred when add task.")
+        }
+    })
+}
+
+function deleteTask(){
+    const index = this.value;
+    console.log(index)
+    fetch(deleteTaskRoute,{
+        method: "POST",
+        headers: {"Content-Type": "application/json", "Csrf-Token": csrfToken},
+        body: JSON.stringify(index)
+    }).then(res=>res.json()).then(data=>{
+        const status = data["status"];
+        if(status==true){
+            loadTasks();
+        }
+        else{
+            document.getElementById("task-message").innerHTML="Failed to delete task.";
+            setTimeout(()=>{document.getElementById("task-message").innerHTML=null;}, 1000);
+            console.log("Error occurred when delete task.");
+        }
+    })
+}
+
+function registerContent() {
+    document.getElementById("login-section").hidden = true;
+    document.getElementById("register-section").hidden = false;
+}
+
+function loginContent() {
+    document.getElementById("login-section").hidden = false;
+    document.getElementById("register-section").hidden = true;
+}
+
+function register(){
+    const username = document.getElementById("register-username").value;
+    const password = document.getElementById("register-password").value;
+    fetch(createUserRoute, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Csrf-Token": csrfToken },
+        body: JSON.stringify({ username, password })
+    }).then(result => result.json()).then(data => {
+        const status = data["status"];
+        if (status == true) {
+            loadTasks();
+            document.getElementById("register-section").hidden = true;
+            document.getElementById("task-section").hidden = false;
+        }
+        else{
+            document.getElementById("register-message").innerHTML="Failed to register.";
+            setTimeout(()=>{document.getElementById("register-message").innerHTML=null;}, 1000);
+            console.log("User already exist");
+        }
     });
 }
 

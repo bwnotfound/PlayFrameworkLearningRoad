@@ -65,7 +65,8 @@ object TaskListInMemoryModel {
   }
   def deleteTask(username: String, index: Int): Boolean = {
     taskMap
-      .get(username).map { userTask =>
+      .get(username)
+      .map { userTask =>
         if (index >= userTask.length || index < 0)
           false
         else {
@@ -76,23 +77,52 @@ object TaskListInMemoryModel {
       .getOrElse(false)
   }
 
-  def getTasksJson(username:String):JsValue = { //TODO:仍有JsValue两种方式创建时对于Seq处理方法的不了解
+  def getTasksJson(username: String): JsValue = { // TODO:仍有JsValue两种方式创建时对于Seq处理方法的不了解
     val tasksOption = taskMap.get(username)
-    if(!tasksOption.isEmpty){
+    if (!tasksOption.isEmpty) {
       val tasks = tasksOption.get.toSeq
       // Json.toJson(tasks)
-      JsObject(
-        Seq(
-          "status"->JsBoolean(true),
-          "tasks"->Json.toJson(tasks)
-        )
+      Json.obj(
+        "status" -> true,
+        "tasks" -> tasks
       )
       // (tasksOption.get.toSeq)
-    }
-    else{
+    } else {
       Json.obj(
-        "status"->false
+        "status" -> false
       )
     }
+  }
+
+  def addTaskJson(username: String, task: String): JsValue = {
+    val tasksOption = taskMap.get(username)
+    if (!tasksOption.isEmpty) {
+      val tasks = tasksOption.get
+      tasks.append(task)
+      Json.obj {
+        "status" -> true
+      }
+    } else {
+      Json.obj(
+        "status" -> false
+      )
+    }
+
+  }
+
+  def deleteTaskJson(username: String, index: Int): JsValue = {
+    val tasksOption = taskMap.get(username)
+    if (!tasksOption.isEmpty) {
+      val tasks = tasksOption.get
+      tasks.remove(index)
+      Json.obj {
+        "status" -> true
+      }
+    } else {
+      Json.obj(
+        "status" -> false
+      )
+    }
+
   }
 }
