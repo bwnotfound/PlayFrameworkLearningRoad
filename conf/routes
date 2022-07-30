@@ -41,5 +41,9 @@ POST    /web3/createUser            controllers.TaskList3.createUser
 POST    /web3/addTask               controllers.TaskList3.addTask
 POST    /web3/deleteTask            controllers.TaskList3.deleteTask
 
+# WebSocket
+GET     /ws/chat                    controllers.WebSocketChat.index
+GET     /ws/socket                  controllers.WebSocketChat.socket
+
 GET     /assets/*file               controllers.Assets.at(file)
 GET     /versionedAssets/*file      controllers.Assets.versioned(path="/public", file: Asset)
