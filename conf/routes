@@ -45,5 +45,8 @@ POST    /web3/deleteTask            controllers.TaskList3.deleteTask
 GET     /ws/chat                    controllers.WebSocketChat.index
 GET     /ws/socket                  controllers.WebSocketChat.socket
 
+# Web4.0
+GET     /web4/                      controllers.TaskList4.load
+
 GET     /assets/*file               controllers.Assets.at(file)
 GET     /versionedAssets/*file      controllers.Assets.versioned(path="/public", file: Asset)
