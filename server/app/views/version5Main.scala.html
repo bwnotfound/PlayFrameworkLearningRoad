@@ -1,0 +1,32 @@
+@()(implicit request: RequestHeader, flash: Flash)
+
+@main("Task List 4"){
+
+
+
+    <input type="hidden" id="csrfToken" value="@helper.CSRF.getToken.value">
+	<input type="hidden" id="validateRoute" value="@routes.TaskList5.validate()">
+	<input type="hidden" id="tasksRoute" value="@routes.TaskList5.taskList()">
+	<input type="hidden" id="createRoute" value="@routes.TaskList5.createUser()">
+	<input type="hidden" id="deleteRoute" value="@routes.TaskList5.delete()">
+	<input type="hidden" id="addRoute" value="@routes.TaskList5.addTask()">
+  <input type="hidden" id="logoutRoute" value="@routes.TaskList5.logout()">
+  
+
+  <div id="react-root"></div>
+  <br>
+  <br>
+  <input type="text" id="deleteInput">
+  <button onclick="deleteUser()">delete uesr</button>
+
+	<script>
+    function deleteUser(){
+      const url = "/delete?username=" + document.getElementById("deleteInput").value;
+      console.log(url);
+      fetch(url).then(res=>res.json()).then(json=>console.log(json));
+    }
+
+	</script>
+
+  <script src="@routes.Assets.versioned("javascript/version5.js")"></script>
+}
