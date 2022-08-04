@@ -64,6 +64,8 @@ GET     /delete                                         controllers.TaskList5.de
 # web6
 GET     /load6                                          controllers.TaskList6.load
 
+# web7
+GET     /load7                                          controllers.TaskList7.load
 # Prefix must match `play.assets.urlPrefix`
 GET     /assets/*file                                   controllers.Assets.at(file)
 GET     /versionedAssets/*file                          controllers.Assets.versioned(path="/public", file: Asset)

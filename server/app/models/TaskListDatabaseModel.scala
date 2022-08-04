@@ -80,16 +80,19 @@ class TaskListDatabaseModel(db: Database)(implicit ec: ExecutionContext) {
   }
   
   def addTask(userId: Int, task: String): Future[Boolean] = {
-    userExistById(userId).flatMap{ userExistStatus =>
-      if(userExistStatus){
-        db.run(Items += ItemsRow(-1, userId, task)).map { addCount =>
-          addCount > 0
+    if(task.isEmpty)
+      Future[Boolean](false)
+    else
+      userExistById(userId).flatMap{ userExistStatus =>
+        if(userExistStatus){
+          db.run(Items += ItemsRow(-1, userId, task)).map { addCount =>
+            addCount > 0
+          }
+        }
+        else{
+          Future[Boolean](false)
         }
       }
-      else{
-        Future[Boolean](false)
-      }
-    }
   }
   
   def removeTask(itemId: Int): Future[Boolean] = {
